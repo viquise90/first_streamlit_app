@@ -28,12 +28,14 @@ streamlit.write('The user entered ', fruit_choice)
 
 import requests
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
-#streamlit.text(fruityvice_response.json())
 
 # create dataframe from json response 
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # show dataframe on the page
 streamlit.dataframe(fruityvice_normalized)
+
+# dont run anything past here while we troubleshoot
+streamlit.stop()
 
 import snowflake.connector
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
